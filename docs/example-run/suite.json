@@ -1,0 +1,65 @@
+{
+  "cases": [
+    {
+      "brief_id": "saas_demo",
+      "brief_path": "D:\\WorkBuddy\\2026-10-14-15-04-57\\frame-agent\\examples\\briefs\\saas_demo.json",
+      "status": "ok",
+      "verdict": "pass",
+      "overall": 94.4,
+      "dimension_scores": {
+        "hook_strength": 100,
+        "audience_fit": 85,
+        "structure": 87,
+        "compliance": 100,
+        "producibility": 100
+      },
+      "rounds": 2,
+      "model_calls": 9,
+      "tokens": 20987,
+      "best_variant_id": "v1",
+      "best_hook": "排期？5天自己看变化",
+      "degradation_notes": [],
+      "elapsed_sec": 0.078
+    },
+    {
+      "brief_id": "skincare_launch",
+      "brief_path": "D:\\WorkBuddy\\2026-10-14-15-04-57\\frame-agent\\examples\\briefs\\skincare_launch.json",
+      "status": "ok",
+      "verdict": "pass",
+      "overall": 97.0,
+      "dimension_scores": {
+        "hook_strength": 100,
+        "audience_fit": 85,
+        "structure": 100,
+        "compliance": 100,
+        "producibility": 100
+      },
+      "rounds": 2,
+      "model_calls": 9,
+      "tokens": 20756,
+      "best_variant_id": "v1",
+      "best_hook": "暗沉？28天自己看变化",
+      "degradation_notes": [],
+      "elapsed_sec": 0.07
+    }
+  ],
+  "summary": {
+    "case_count": 2,
+    "pass_count": 2,
+    "pass_rate": 1.0,
+    "mean_score": 95.7,
+    "min_score": 94.4,
+    "max_score": 97.0,
+    "mean_rounds": 2.0,
+    "total_model_calls": 18,
+    "total_tokens": 41743,
+    "mean_dimension_scores": {
+      "audience_fit": 85.0,
+      "compliance": 100.0,
+      "hook_strength": 100.0,
+      "producibility": 100.0,
+      "structure": 93.5
+    },
+    "cases_with_degradation": []
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "scenes": [
+    {
+      "index": 1,
+      "time_range": "0.0-9.8s",
+      "subject": "精华类护肤品",
+      "mood": "克制专业",
+      "on_screen_text": "今天想跟大家聊一款最近被问得",
+      "keywords": [],
+      "compliance_risk": []
+    },
+    {
+      "index": 2,
+      "time_range": "9.8-20.4s",
+      "subject": "精华类护肤品",
+      "mood": "轻松日常",
+      "on_screen_text": "很多人一听到烟酰胺就会想能不",
+      "keywords": [
+        "暗沉"
+      ],
+      "compliance_risk": [
+        "美白"
+      ]
+    },
+    {
+      "index": 3,
+      "time_range": "20.4-30.6s",
+      "subject": "精华类护肤品",
+      "mood": "痛点共鸣",
+      "on_screen_text": "参与者的肤色均匀度有比较明显",
+      "keywords": [
+        "熬夜"
+      ],
+      "compliance_risk": []
+    },
+    {
+      "index": 4,
+      "time_range": "30.6-40.8s",
+      "subject": "精华类护肤品",
+      "mood": "理性对比",
+      "on_screen_text": "当然每个人的皮肤情况不一样",
+      "keywords": [],
+      "compliance_risk": []
+    }
+  ],
+  "dominant_mood": "克制专业",
+  "audience_hint": "22-30 岁一线城市女性上班族",
+  "compliance_flags": [
+    "美白"
+  ],
+  "summary": "素材共 4 个语义段落，主体为精华类护肤品相关演示，整体调性克制专业，存在风险表述需要改写：美白。",
+  "frames_seen": 6
+}

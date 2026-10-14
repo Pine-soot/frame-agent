@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "frame-agent"
+version = "1.0.0"
+description = "Vertical content-production Agent pipeline: multimodal understanding -> script/storyboard generation -> deterministic rubric evaluation -> self-reflective rewrite -> prompt optimization"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Pine-soot" }]
+keywords = ["agent", "llm", "multi-agent", "content-generation", "structured-output", "evaluation"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+# 运行期刻意保持零第三方依赖：评审者 clone 后可直接运行全链路。
+dependencies = []
+
+[project.optional-dependencies]
+# 仅在需要真正调用云端/本地模型时才需要（实际上只用到了标准库 urllib，
+# 这里列出的仅为可选的便捷客户端，不装也能跑）。
+dev = ["pytest>=7.0"]
+
+[project.scripts]
+frame-agent = "frame_agent.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["frame_agent*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

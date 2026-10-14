@@ -1,0 +1,47 @@
+{
+  "brief_id": "skincare_launch",
+  "product": {
+    "name": "成分实验室 5% 烟酰胺精华",
+    "category": "精华类护肤品",
+    "selling_points": [
+      "5% 烟酰胺高浓度配方",
+      "28 天改善暗沉",
+      "无香精无酒精",
+      "附第三方人体功效测试报告"
+    ],
+    "price_cny": 129,
+    "constraints": [
+      "不得宣称美白功效",
+      "不得使用绝对化用语（最好、第一、彻底等）",
+      "需提示个体差异"
+    ]
+  },
+  "audience": {
+    "segment": "22-30 岁一线城市女性上班族",
+    "pain_points": [
+      "熬夜后肤色暗沉",
+      "妆前卡粉",
+      "预算有限"
+    ],
+    "keywords": [
+      "暗沉",
+      "熬夜",
+      "平价",
+      "成分党",
+      "通勤"
+    ]
+  },
+  "platform": {
+    "name": "抖音",
+    "aspect_ratio": "9:16",
+    "target_duration_sec": 30,
+    "max_duration_sec": 45
+  },
+  "goal": "新品上市种草，引导点击购物车",
+  "media": {
+    "transcript": "examples/media/skincare_clip.srt"
+  },
+  "variants": 3,
+  "max_rounds": 2,
+  "pass_threshold": 82
+}

@@ -1,0 +1,27 @@
+{
+  "total_calls": 9,
+  "successful_calls": 9,
+  "failed_calls": 0,
+  "retry_calls": 0,
+  "total_tokens": 20756,
+  "latency_ms": {
+    "p50": 0.19,
+    "p95": 0.31
+  },
+  "by_backend": {
+    "mock": {
+      "calls": 9,
+      "failures": 0,
+      "tokens": 20756,
+      "p50_ms": 0.19
+    }
+  },
+  "budget": {
+    "calls": 9,
+    "calls_limit": 64,
+    "tokens": 20756,
+    "tokens_limit": 200000,
+    "elapsed_seconds": 0.073,
+    "seconds_limit": 600.0
+  }
+}

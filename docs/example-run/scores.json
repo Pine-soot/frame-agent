@@ -1,0 +1,340 @@
+{
+  "variants": [
+    {
+      "variant_id": "v1",
+      "angle": "痛点切入",
+      "dimension_scores": {
+        "hook_strength": 100,
+        "audience_fit": 85,
+        "structure": 100,
+        "compliance": 100,
+        "producibility": 100
+      },
+      "weights": {
+        "hook_strength": 0.35,
+        "audience_fit": 0.2,
+        "structure": 0.2,
+        "compliance": 0.15,
+        "producibility": 0.1
+      },
+      "notes": {
+        "hook_strength": [
+          "钩子含具体数字（可信度锚点）+25",
+          "钩子长度 11 字，在 22 字以内 +25",
+          "钩子含悬念/冲突/反差标记 +20",
+          "钩子为疑问句，天然制造信息缺口 +10",
+          "钩子长度落在最佳区间 8-22 字 +20",
+          "钩子未使用无效开场白 +15"
+        ],
+        "audience_fit": [
+          "钩子命中受众关键词：暗沉 +25",
+          "钩子直指受众痛点：熬夜后肤色暗沉 +20",
+          "正文覆盖 2 个受众关键词 +25",
+          "文案缺少第二人称或具体场景指代（未得分）",
+          "全文覆盖 2 个不同受众词，覆盖面达标 +15"
+        ],
+        "structure": [
+          "4 个节拍，符合短视频结构 +30",
+          "每个节拍都有镜头描述，可直接照拍 +25",
+          "每个节拍都有屏幕字幕设计 +20",
+          "预估成片 27.78s vs 目标 30.0s，偏差 7% +25"
+        ],
+        "compliance": [
+          "未命中广告法风险词 +100"
+        ],
+        "producibility": [
+          "镜头描述完备 +40",
+          "屏幕字幕完备 +30",
+          "节拍数量足够支撑一条完整成片 +15",
+          "存在明确的行动号召 +15"
+        ]
+      },
+      "overall": 97.0,
+      "pass_threshold": 82.0,
+      "verdict": "pass",
+      "weak_dimensions": [],
+      "metrics": {
+        "hook": "暗沉？28天自己看变化",
+        "hook_char_count": 11,
+        "hook_has_number": true,
+        "hook_is_concise": true,
+        "hook_has_tension": true,
+        "hook_keyword_hits": [
+          "暗沉"
+        ],
+        "hook_pain_hits": [
+          "熬夜后肤色暗沉"
+        ],
+        "hook_question": true,
+        "beat_count": 4,
+        "beats_with_shot": 4,
+        "beats_with_on_screen": 4,
+        "beat_durations": [
+          8.0,
+          7.0,
+          7.0,
+          8.0
+        ],
+        "pacing_stddev": 0.5,
+        "cta": "点击下方购物车，129元直接带走",
+        "cta_present": true,
+        "char_count": 141,
+        "body_char_count": 128,
+        "est_duration_sec": 27.78,
+        "target_duration_sec": 30.0,
+        "duration_delta_ratio": 0.074,
+        "sentence_lengths": [
+          2,
+          25,
+          24,
+          26,
+          10,
+          21,
+          18,
+          8
+        ],
+        "mean_sentence_len": 16.75,
+        "max_sentence_len": 26,
+        "audience_keyword_pool": [
+          "暗沉",
+          "熬夜",
+          "平价",
+          "成分党",
+          "通勤"
+        ],
+        "audience_pain_pool": [
+          "熬夜后肤色暗沉",
+          "妆前卡粉",
+          "预算有限"
+        ],
+        "body_keyword_hits": [
+          "暗沉",
+          "熬夜"
+        ]
+      }
+    },
+    {
+      "variant_id": "v2",
+      "angle": "成分科普",
+      "dimension_scores": {
+        "hook_strength": 100,
+        "audience_fit": 65,
+        "structure": 100,
+        "compliance": 100,
+        "producibility": 100
+      },
+      "weights": {
+        "hook_strength": 0.35,
+        "audience_fit": 0.2,
+        "structure": 0.2,
+        "compliance": 0.15,
+        "producibility": 0.1
+      },
+      "notes": {
+        "hook_strength": [
+          "钩子含具体数字（可信度锚点）+25",
+          "钩子长度 11 字，在 22 字以内 +25",
+          "钩子含悬念/冲突/反差标记 +20",
+          "钩子为疑问句，天然制造信息缺口 +10",
+          "钩子长度落在最佳区间 8-22 字 +20",
+          "钩子未使用无效开场白 +15"
+        ],
+        "audience_fit": [
+          "钩子命中受众关键词：平价 +25",
+          "钩子未直指受众痛点原话（未得分）",
+          "正文覆盖 2 个受众关键词 +25",
+          "文案缺少第二人称或具体场景指代（未得分）",
+          "全文覆盖 3 个不同受众词，覆盖面达标 +15"
+        ],
+        "structure": [
+          "4 个节拍，符合短视频结构 +30",
+          "每个节拍都有镜头描述，可直接照拍 +25",
+          "每个节拍都有屏幕字幕设计 +20",
+          "预估成片 27.78s vs 目标 30.0s，偏差 7% +25"
+        ],
+        "compliance": [
+          "未命中广告法风险词 +100"
+        ],
+        "producibility": [
+          "镜头描述完备 +40",
+          "屏幕字幕完备 +30",
+          "节拍数量足够支撑一条完整成片 +15",
+          "存在明确的行动号召 +15"
+        ]
+      },
+      "overall": 93.0,
+      "pass_threshold": 82.0,
+      "verdict": "pass",
+      "weak_dimensions": [
+        "audience_fit"
+      ],
+      "metrics": {
+        "hook": "平价？5处关键点先讲清",
+        "hook_char_count": 11,
+        "hook_has_number": true,
+        "hook_is_concise": true,
+        "hook_has_tension": true,
+        "hook_keyword_hits": [
+          "平价"
+        ],
+        "hook_pain_hits": [],
+        "hook_question": true,
+        "beat_count": 4,
+        "beats_with_shot": 4,
+        "beats_with_on_screen": 4,
+        "beat_durations": [
+          8.0,
+          7.0,
+          7.0,
+          8.0
+        ],
+        "pacing_stddev": 0.5,
+        "cta": "点击下方购物车，129元直接带走",
+        "cta_present": true,
+        "char_count": 141,
+        "body_char_count": 128,
+        "est_duration_sec": 27.78,
+        "target_duration_sec": 30.0,
+        "duration_delta_ratio": 0.074,
+        "sentence_lengths": [
+          2,
+          25,
+          24,
+          26,
+          10,
+          21,
+          18,
+          8
+        ],
+        "mean_sentence_len": 16.75,
+        "max_sentence_len": 26,
+        "audience_keyword_pool": [
+          "暗沉",
+          "熬夜",
+          "平价",
+          "成分党",
+          "通勤"
+        ],
+        "audience_pain_pool": [
+          "熬夜后肤色暗沉",
+          "妆前卡粉",
+          "预算有限"
+        ],
+        "body_keyword_hits": [
+          "暗沉",
+          "熬夜"
+        ]
+      }
+    },
+    {
+      "variant_id": "v3",
+      "angle": "对比测评",
+      "dimension_scores": {
+        "hook_strength": 100,
+        "audience_fit": 40,
+        "structure": 100,
+        "compliance": 100,
+        "producibility": 100
+      },
+      "weights": {
+        "hook_strength": 0.35,
+        "audience_fit": 0.2,
+        "structure": 0.2,
+        "compliance": 0.15,
+        "producibility": 0.1
+      },
+      "notes": {
+        "hook_strength": [
+          "钩子含具体数字（可信度锚点）+25",
+          "钩子长度 15 字，在 22 字以内 +25",
+          "钩子含悬念/冲突/反差标记 +20",
+          "钩子长度落在最佳区间 8-22 字 +20",
+          "钩子未使用无效开场白 +15"
+        ],
+        "audience_fit": [
+          "钩子未命中任何受众关键词（未得分）",
+          "钩子未直指受众痛点原话（未得分）",
+          "正文覆盖 2 个受众关键词 +25",
+          "文案缺少第二人称或具体场景指代（未得分）",
+          "全文覆盖 2 个不同受众词，覆盖面达标 +15"
+        ],
+        "structure": [
+          "4 个节拍，符合短视频结构 +30",
+          "每个节拍都有镜头描述，可直接照拍 +25",
+          "每个节拍都有屏幕字幕设计 +20",
+          "预估成片 28.67s vs 目标 30.0s，偏差 4% +25"
+        ],
+        "compliance": [
+          "未命中广告法风险词 +100"
+        ],
+        "producibility": [
+          "镜头描述完备 +40",
+          "屏幕字幕完备 +30",
+          "节拍数量足够支撑一条完整成片 +15",
+          "存在明确的行动号召 +15"
+        ]
+      },
+      "overall": 88.0,
+      "pass_threshold": 82.0,
+      "verdict": "pass",
+      "weak_dimensions": [
+        "audience_fit"
+      ],
+      "metrics": {
+        "hook": "别再乱买了，129元差在这5点",
+        "hook_char_count": 15,
+        "hook_has_number": true,
+        "hook_is_concise": true,
+        "hook_has_tension": true,
+        "hook_keyword_hits": [],
+        "hook_pain_hits": [],
+        "hook_question": false,
+        "beat_count": 4,
+        "beats_with_shot": 4,
+        "beats_with_on_screen": 4,
+        "beat_durations": [
+          8.0,
+          7.0,
+          7.0,
+          8.0
+        ],
+        "pacing_stddev": 0.5,
+        "cta": "点击下方购物车，129元直接带走",
+        "cta_present": true,
+        "char_count": 145,
+        "body_char_count": 128,
+        "est_duration_sec": 28.67,
+        "target_duration_sec": 30.0,
+        "duration_delta_ratio": 0.044,
+        "sentence_lengths": [
+          5,
+          26,
+          24,
+          26,
+          10,
+          21,
+          18,
+          8
+        ],
+        "mean_sentence_len": 17.25,
+        "max_sentence_len": 26,
+        "audience_keyword_pool": [
+          "暗沉",
+          "熬夜",
+          "平价",
+          "成分党",
+          "通勤"
+        ],
+        "audience_pain_pool": [
+          "熬夜后肤色暗沉",
+          "妆前卡粉",
+          "预算有限"
+        ],
+        "body_keyword_hits": [
+          "暗沉",
+          "熬夜"
+        ]
+      }
+    }
+  ]
+}

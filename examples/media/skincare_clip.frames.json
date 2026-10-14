@@ -1,0 +1,35 @@
+{
+  "_comment": "旁挂关键帧清单。存在本文件时，media.extract_keyframes 会走 manifest 分支（第二级降级），不依赖 ffmpeg。字段说明：time_sec=帧时间点，caption=画面描述，source 由代码写入。",
+  "frames": [
+    {
+      "time_sec": 0.8,
+      "caption": "人物中景口播，背景为浅色梳妆台，光线偏冷",
+      "ref": "manifest://skincare_clip/frame_01"
+    },
+    {
+      "time_sec": 4.5,
+      "caption": "产品瓶身特写，滴管出液，浅景深",
+      "ref": "manifest://skincare_clip/frame_02"
+    },
+    {
+      "time_sec": 11.2,
+      "caption": "字幕卡：「百分之五烟酰胺」，大字报式排版",
+      "ref": "manifest://skincare_clip/frame_03"
+    },
+    {
+      "time_sec": 18.0,
+      "caption": "分屏对比，左右两侧为使用前后的局部肤质",
+      "ref": "manifest://skincare_clip/frame_04"
+    },
+    {
+      "time_sec": 24.6,
+      "caption": "手部演示，将精华滴在手背并推开，俯拍",
+      "ref": "manifest://skincare_clip/frame_05"
+    },
+    {
+      "time_sec": 38.5,
+      "caption": "片尾字幕，无人物出镜",
+      "ref": "manifest://skincare_clip/frame_06"
+    }
+  ]
+}

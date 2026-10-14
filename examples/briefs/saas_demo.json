@@ -1,0 +1,47 @@
+{
+  "brief_id": "saas_demo",
+  "product": {
+    "name": "FlowPilot 跨部门任务协同平台",
+    "category": "协作软件",
+    "selling_points": [
+      "需求变更自动同步到 3 个下游系统",
+      "排期冲突提前 5 天预警",
+      "无需迁移现有 Excel 工作流",
+      "平均每周节省 6 小时人工对表时间"
+    ],
+    "price_cny": 299,
+    "constraints": [
+      "不得承诺具体的效率提升百分比",
+      "不得贬低竞品",
+      "团队规模与版本差异需注明"
+    ]
+  },
+  "audience": {
+    "segment": "50-300 人规模公司的项目管理者",
+    "pain_points": [
+      "需求变更靠群里喊话",
+      "排期冲突靠人肉对表",
+      "跨部门进度不透明"
+    ],
+    "keywords": [
+      "排期",
+      "需求变更",
+      "跨部门",
+      "对表",
+      "Excel"
+    ]
+  },
+  "platform": {
+    "name": "视频号",
+    "aspect_ratio": "16:9",
+    "target_duration_sec": 45,
+    "max_duration_sec": 60
+  },
+  "goal": "引导企业用户预约产品演示",
+  "media": {
+    "transcript": "examples/media/saas_clip.srt"
+  },
+  "variants": 3,
+  "max_rounds": 2,
+  "pass_threshold": 82
+}

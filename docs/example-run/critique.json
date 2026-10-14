@@ -1,0 +1,15 @@
+{
+  "verdict": "pass",
+  "overall": 97.0,
+  "dimension_scores": {
+    "audience_fit": 85,
+    "compliance": 100,
+    "hook_strength": 100,
+    "producibility": 100,
+    "structure": 100
+  },
+  "issues": [],
+  "rewrite_directives": [],
+  "summary": "总分 97.0（阈值 82），通过，可用于投放测试。",
+  "variant_id": "v1"
+}
