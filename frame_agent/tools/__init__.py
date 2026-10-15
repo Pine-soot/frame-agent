@@ -1,7 +1,7 @@
 """工具层装配。
 
 :func:`build_registry` 在每个 run 开始时按当次上下文（brief / 素材路径）
-构造一份工具注册表。**用闭包绑定上下文**，而不是让模型在参数里传路径——
+构造一份工具注册表。**用闭包绑定上下文**，而不是让模型在参数里传路径，
 这既避免了模型编造路径，也让工具 schema 保持极简（参数越少，模型选错越少）。
 """
 
@@ -31,7 +31,7 @@ def build_registry(context: dict[str, Any]) -> ToolRegistry:
     """构造本次运行的工具集。
 
     ``context`` 是**可变的**：流水线在后半程会把生成好的脚本写回
-    ``context["scripts"]``，于是 ``script_metrics`` 工具在后半程才真正可用。
+    ``context["scripts"]``，于是 ``script_metrics`` 工具在后半程才可用。
     工具是"活的"，能反映当前运行状态，而不是一份静态快照。
     """
     registry = ToolRegistry()

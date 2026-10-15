@@ -1,17 +1,16 @@
-"""交付报告渲染 —— 把一堆 JSON 变成人能在 2 分钟内读完的东西。
+"""交付报告渲染：把一堆 JSON 变成人能在 2 分钟内读完的东西。
 
-报告的设计原则是 **先给结论，再给证据，最后给过程**：
+报告按"先结论、再证据、最后过程"的顺序组织：
 
-1. 顶部一屏放"采纳方案 + 总分 + 是否达标 + 是否有降级"，
-   让人不必往下翻就知道这次能不能用；
-2. 中部放逐维度评分明细（含每条加分规则），因为"为什么是 73 分"
-   比"73 分"重要得多；
+1. 顶部一屏放采纳方案、总分、是否达标、是否有降级，
+   不往下翻就能知道这次能不能用；
+2. 中部放逐维度评分明细（含每条加分规则），"为什么是 73 分"
+   比"73 分"本身更值得看；
 3. 底部放成本画像与完整叙事链（第几轮改了什么、分数怎么变的），
    用于复盘和方法论沉淀。
 
-另外报告里**必须显式标注后端类型与降级项**。
-一份用离线后端跑出来的高分报告，如果被误当成"真实模型效果"，
-就会误导决策——所以在标题区直接写明 ``backend``。
+报告里会显式标注后端类型与降级项。一份用离线后端跑出来的高分报告，
+如果被误当成真实模型效果，就会误导决策，所以在标题区直接写明 ``backend``。
 """
 
 from __future__ import annotations
@@ -21,7 +20,7 @@ from typing import Any
 __all__ = ["render_markdown"]
 
 _BACKEND_LABEL = {
-    "mock": "离线确定性后端（用于验证流程与可复现性，**不代表真实创作水平**）",
+    "mock": "离线确定性后端（用于验证流程与可复现性，不代表真实创作水平）",
     "openai-compat": "真实模型后端（OpenAI 兼容端点）",
 }
 
@@ -109,10 +108,10 @@ def render_markdown(
     lines.append("")
     lines.append(f"- **运行 ID**：`{run_id}`")
     lines.append(f"- **投放平台**：{platform}")
-    lines.append(f"- **后端**：`{backend}` —— {label}")
+    lines.append(f"- **后端**：`{backend}`，{label}")
     lines.append(
-        f"- **结论**：采纳变体 **{best_id}**，总分 **{overall}** / 阈值 {threshold} —— "
-        f"{'✅ 达标' if verdict == 'pass' else '⚠️ 未达标'}"
+        f"- **结论**：采纳变体 `{best_id}`，总分 {overall} / 阈值 {threshold}，"
+        f"{'达标' if verdict == 'pass' else '未达标'}"
     )
     lines.append(f"- **反思轮数**：{rounds}")
     lines.append(f"- **模型调用 / token**：{cost.get('total_calls')} 次 / {cost.get('total_tokens')}")
@@ -187,8 +186,8 @@ def render_markdown(
             last = round_history[-1].get("best_score")
             if first is not None and last is not None:
                 lines.append(
-                    f"**最高分变化：{first} → {last}（{round(last - first, 2):+}）**"
-                    " —— 这是可复现的，因为每一分都对应上表某个具体指标的变动。"
+                    f"最高分变化：{first} → {last}（{round(last - first, 2):+}）。"
+                    "每一分都对应上表某个具体指标的变动。"
                 )
                 lines.append("")
     else:
@@ -234,7 +233,7 @@ def render_markdown(
     lines.append("## 6. 提示词单变量变体")
     lines.append("")
     if prompt_set.get("variants"):
-        lines.append(f"**推荐**：`{prompt_set.get('recommended_id')}` —— {prompt_set.get('reason','')}")
+        lines.append(f"**推荐**：`{prompt_set.get('recommended_id')}`：{prompt_set.get('reason','')}")
         lines.append("")
         lines.append("| 变体 | 轴 | 改动 | 预期影响 |")
         lines.append("| --- | --- | --- | --- |")
@@ -312,7 +311,7 @@ def render_markdown(
     lines.append("")
     lines.append(
         "> 说明：本报告由确定性评测器打分，分数可复现、可追溯至具体指标；"
-        "语义诊断部分由模型给出。评分只用于**初筛与回归对比**，"
+        "语义诊断部分由模型给出。评分只用于初筛与回归对比，"
         "最终投放决策仍需人工终审。"
     )
     lines.append("")

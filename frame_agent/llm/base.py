@@ -4,7 +4,7 @@
 :mod:`frame_agent.llm.mock`（确定性离线）、:mod:`frame_agent.llm.openai_compat`
 （任意 OpenAI 兼容端点），测试里还有一个用于注入故障的替身。
 
-刻意不引入官方 SDK：只用标准库 ``urllib``，让"换模型"这件事退化成改环境变量。
+不引入官方 SDK：只用标准库 ``urllib``，让"换模型"这件事退化成改环境变量。
 """
 
 from __future__ import annotations
@@ -154,7 +154,7 @@ class LLMBackend(Protocol):
     """后端协议。
 
     只要实现 ``name`` 与 ``complete`` 两个成员即可被 :class:`ModelRouter` 接纳。
-    用 ``Protocol`` 而非 ABC，是为了让测试替身不必继承任何基类——
+    用 ``Protocol`` 而非 ABC，是为了让测试替身不必继承任何基类，
     Duck typing 在这里比继承更贴合"可替换"的设计意图。
     """
 

@@ -109,7 +109,7 @@ class TestMetrics(unittest.TestCase):
         self.assertTrue(metrics["cta_present"])
         self.assertEqual(metrics["hook_keyword_hits"], ["暗沉"])
         self.assertEqual(metrics["beat_count"], 2)
-        # 两拍时长 8s / 7s，总体标准差为 0.5 —— 用来验证节拍时长确实被解析出来
+        # 两拍时长 8s / 7s，总体标准差为 0.5，用来验证节拍时长确实被解析出来
         self.assertAlmostEqual(metrics["pacing_stddev"], 0.5)
 
     def test_long_hook_without_number_fails_flags(self):
@@ -234,7 +234,7 @@ class TestMediaDegradation(unittest.TestCase):
         )
 
     def test_missing_file_still_returns_a_result(self):
-        """文件不存在也不能抛异常——工具失败必须以观测形式返回。"""
+        """文件不存在也不能抛异常，工具失败必须以观测形式返回。"""
         result = extract_keyframes("D:/definitely/not/here.mp4", count=2)
         self.assertEqual(result["source"], "synthetic")
         self.assertEqual(len(result["frames"]), 2)

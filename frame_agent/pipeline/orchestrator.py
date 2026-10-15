@@ -1,4 +1,4 @@
-"""编排层 —— 把四个 Agent 串成一条可交付、可观测、可续跑的流水线。
+"""编排层：把四个 Agent 串成一条可交付、可观测、可续跑的流水线。
 
 反思循环（reflection loop）的收敛条件
 =====================================
@@ -18,23 +18,23 @@
         best, rubric = 重新评测并挑最优
         round += 1
 
-三个刻意的设计决定：
+三个有意的设计决定：
 
 1. **达标即停**，不是固定跑满轮数。第 1 轮就过阈值的 case 只花 1 轮成本，
    这对批量生产是决定性的成本差异。
 2. **重写时把上一版一起带上**，否则模型会"重新发明"而不是"针对性修改"，
    容易把已经达标的部分改坏（详见 :mod:`frame_agent.agents.scripter`）。
 3. **预算熔断优先于收敛**。如果 token/调用次数快耗尽，宁可在未收敛时停下
-   并如实标注，也不要为了"跑满"而超支——真实业务里超支比不完美更不可接受。
+   并如实标注，也不要为了"跑满"而超支，真实业务里超支比不完美更不可接受。
 
 降级而非崩溃
 ============
 
 任何一个 Agent 失败（结构校验过不去、模型全挂了），本层都不会让整个 run 崩掉，
-而是把失败**记进 degradation_notes** 并继续能走的部分。
+只把失败**记进 degradation_notes**，继续走后面的部分。
 理由：内容生产的产出是"给人初筛用的候选集"，
 交出"3 个方案 + 1 条明确的失败说明"远比什么都不交有价值。
-但如果最终一个可用变体都没有，就如实返回失败——不伪造产物。
+但如果最终一个可用变体都没有，就如实返回失败，不伪造产物。
 """
 
 from __future__ import annotations
@@ -91,7 +91,7 @@ class ContentPipeline:
     def _resolve_media(self, media: dict) -> dict:
         """把相对素材路径解析成实际存在的绝对路径。
 
-        只在"原路径不存在、但 base_dir 下存在"时才替换——
+        只在"原路径不存在、但 base_dir 下存在"时才替换，
         这样显式传入的正确相对路径（相对 cwd）不会被误改。
         """
         resolved = dict(media)
@@ -231,7 +231,7 @@ class ContentPipeline:
         round_history: list[dict] = []
 
         for round_index in range(1, self.max_rounds + 1):
-            # 预算见底就不要开始新的一轮——宁可少一轮，也不要半途熔断
+            # 预算见底就不要开始新的一轮，宁可少一轮，也不要半途熔断
             if self._budget_exhausted():
                 note = (
                     f"预算在第 {round_index} 轮开始前耗尽，已停止反思循环；"
@@ -514,7 +514,7 @@ class ContentPipeline:
 # --------------------------------------------------------------------------
 
 def _pick_best(scripts: list[dict], rubric_result: dict) -> dict:
-    """按评测结果挑出最佳变体。以 ``variant_id`` 匹配，而不是下标——
+    """按评测结果挑出最佳变体。以 ``variant_id`` 匹配，而不是下标，
     下标在过滤/重排之后极易错位，这是最容易埋的坑之一。"""
     target = rubric_result.get("variant_id")
     for script in scripts:

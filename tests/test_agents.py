@@ -1,7 +1,7 @@
 """Agent 层测试：两阶段执行、工具循环、结构化产出保证。
 
-重点验证的是**控制流**而不是输出文本本身——
-因为离线后端的文本是模板化的，真正需要保证的是：
+重点验证的是**控制流**而不是输出文本本身，
+因为离线后端的文本是模板化的，需要保证的是：
 工具被正确调用、观测被正确收敛、schema 不通过时是否会触发修复。
 """
 
@@ -137,7 +137,7 @@ class TestScripter(unittest.TestCase):
         self.assertTrue(all(v["beats"] for v in variants))
 
     def test_rewrite_directives_change_the_output(self):
-        """带重写指令的第二轮必须与第一轮不同——否则反思循环是假收敛。"""
+        """带重写指令的第二轮必须与第一轮不同，否则反思循环是假收敛。"""
         agent = ScripterAgent(_router())
         round1 = agent.run({"brief": BRIEF, "insight": {}, "variant_count": 1, "round": 1})
         round2 = agent.run(

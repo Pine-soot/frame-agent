@@ -4,23 +4,23 @@
 ==================
 
 Agent 流水线里，LLM 的自由文本是**不可信输入**。只要一个字段缺失或类型漂移，
-下游的评分、渲染、落盘就会连环失败——而且失败点离根因很远，极难排查。
+下游的评分、渲染、落盘就会连环失败，而且失败点离根因很远，极难排查。
 
 常规做法是引入 pydantic 之类的重型依赖。本项目把它压到一个约 200 行的
 JSON Schema 子集校验器上，理由有三：
 
-1. **运行期零依赖** —— 评审者 clone 下来直接就能跑，不需要装任何东西；
-2. **错误信息带 JSON 路径** —— 校验失败时产出 ``$.variants[0].hook: 缺少必需字段``
+1. **运行期零依赖**：评审者 clone 下来直接就能跑，不需要装任何东西；
+2. **错误信息带 JSON 路径**：校验失败时产出 ``$.variants[0].hook: 缺少必需字段``
    这类可读错误，可以直接原文回灌给模型做自我修复（这是关键：模型能看懂路径）；
-3. **模型无关** —— 换任何后端（OpenAI / Qwen / vLLM / 本地 7B）都不用改校验层。
+3. **模型无关**：换任何后端（OpenAI / Qwen / vLLM / 本地 7B）都不用改校验层。
 
 三个能力
 ========
 
-- :func:`extract_json` —— 从"夹带解释性文字 / 带 markdown 围栏 / 前缀闲聊"的
+- :func:`extract_json`：从"夹带解释性文字 / 带 markdown 围栏 / 前缀闲聊"的
   原始输出里稳健地抠出 JSON 对象。真实模型几乎从不老老实实只输出 JSON。
-- :func:`validate` —— JSON Schema 子集校验，返回带路径的错误列表。
-- :class:`SchemaGuard` —— 把二者包成 *生成 → 校验 → 带错误重试* 的闭环，
+- :func:`validate`：JSON Schema 子集校验，返回带路径的错误列表。
+- :class:`SchemaGuard`：把二者包成 *生成 → 校验 → 带错误重试* 的闭环，
   把结构化输出的可靠性从"祈祷模型听话"变成"工程上可保证"。
 
 支持的 Schema 关键字
@@ -59,7 +59,7 @@ def _type_ok(value: Any, expected: str) -> bool:
     """按 JSON Schema 语义判定类型。
 
     注意 ``bool`` 在 Python 里是 ``int`` 的子类，必须显式排除，
-    否则 ``True`` 会被判定为合法的 integer——这是最容易踩的坑。
+    否则 ``True`` 会被判定为合法的 integer，这是最容易踩的坑。
     """
     if expected == "integer":
         return isinstance(value, int) and not isinstance(value, bool)
@@ -86,7 +86,7 @@ def validate(instance: Any, schema: dict, path: str = "$") -> list[str]:
     """校验 ``instance`` 是否符合 ``schema``，返回**错误信息列表**。
 
     返回空列表表示通过。之所以返回列表而不是抛异常，是因为
-    :class:`SchemaGuard` 需要把**全部**错误一次性喂回给模型——
+    :class:`SchemaGuard` 需要把**全部**错误一次性喂回给模型，
     一次只报一个错误会导致修复轮次爆炸。
 
     错误信息形如 ``$.variants[0].hook: 缺少必需字段（required）``，
@@ -263,8 +263,8 @@ class Attempt:
 class GuardResult:
     """:class:`SchemaGuard` 的产出。
 
-    ``ok`` 为 False 时 ``data`` 为 None，调用方**必须**显式处理降级路径——
-    这是刻意的设计：静默返回半成品数据比直接失败危险得多。
+    ``ok`` 为 False 时 ``data`` 为 None，调用方**必须**显式处理降级路径，
+    这是有意的设计：静默返回半成品数据比直接失败危险得多。
     """
 
     ok: bool
@@ -318,7 +318,7 @@ class SchemaGuard:
     从而显著减少整体重试次数与 token 消耗。
 
     ``max_repair`` 默认为 2：轮数再多，边际收益已经很低，
-    而且往往说明 schema 或提示词本身有问题，应该让人来看——
+    而且往往说明 schema 或提示词本身有问题，应该让人来看，
     所以这里的策略是"有限修复 + 明确失败"，而不是无限重试。
     """
 
@@ -342,14 +342,14 @@ class SchemaGuard:
         """只做解析 + 校验，不调用模型（便于单测与离线复用）。
 
         未提供 schema 时直接返回原始文本：调用方既然没声明结构要求，
-        就不应该因为"输出不是 JSON"而失败——那是自由文本场景。
+        就不应该因为"输出不是 JSON"而失败，那是自由文本场景。
         """
         if self.schema is None:
             return raw_text, []
         try:
             data = extract_json(raw_text)
         except JSONDecodeFailure as exc:
-            return None, [f"$: JSON 解析失败 —— {exc}"]
+            return None, [f"$: JSON 解析失败：{exc}"]
         return data, self.validate_payload(data)
 
     def generate(

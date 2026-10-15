@@ -3,16 +3,16 @@
 设计要点
 ========
 
-**工具错误不是异常，而是观测。**
+**工具错误一律当作观测处理。**
 :class:`ToolRegistry.invoke` 永远返回 :class:`ToolResult`，绝不向上抛。
-理由是 Agent 的核心优势恰恰在于"失败后能看到失败并调整"——
+理由是 Agent 的核心优势正好在于"失败后能看到失败并调整"，
 如果工具一报错就把整条链炸掉，Agent 就退化成了一个普通函数调用序列。
 把 ``{"ok": false, "error": "..."}`` 作为观测回灌给模型，
 它才有机会换成别的参数、换别的工具，或者如实汇报做不到。
 
 **工具的 schema 就是它的文档。**
 ``parameters`` 里每个字段都带 ``description``，因为这些 schema
-会原样进入模型的 function-calling 上下文——描述写得清楚，
+会原样进入模型的 function-calling 上下文，描述写得清楚，
 模型选错工具的概率就低，这比在 system prompt 里写十行"请正确选择工具"有效得多。
 """
 
@@ -127,9 +127,9 @@ class ToolRegistry:
 
         三类失败都被收敛成 :class:`ToolResult`：
 
-        1. **工具不存在** —— 模型幻觉出一个不存在的工具名（很常见）；
-        2. **参数非法** —— 模型给的 JSON 与函数签名不匹配；
-        3. **执行期异常** —— ffmpeg 没装、文件不存在、权限不足。
+        1. **工具不存在**：模型幻觉出一个不存在的工具名（很常见）；
+        2. **参数非法**：模型给的 JSON 与函数签名不匹配；
+        3. **执行期异常**：ffmpeg 没装、文件不存在、权限不足。
 
         三者对模型都应该表现为"可读的错误 + 建议"，而不是进程崩溃。
         """
@@ -155,7 +155,7 @@ class ToolRegistry:
                 error=f"参数不匹配：{exc}。该工具的参数 schema 为 {spec.parameters}",
                 tool=name,
             )
-        except Exception as exc:  # noqa: BLE001 - 工具层兜底，刻意不向上传播
+        except Exception as exc:  # noqa: BLE001 - 工具层兜底，不向上传播
             result = ToolResult(ok=False, error=f"{type(exc).__name__}: {exc}", tool=name)
         else:
             result = ToolResult(ok=True, data=data, tool=name)

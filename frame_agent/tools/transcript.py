@@ -4,7 +4,7 @@
 =======================
 
 - ``pysrt`` 之类的库要引入依赖；而 SRT 的格式简单到不值得。
-- 真正有价值的部分不是"解析"，而是**从时间轴里算出可被评测的统计量**：
+- 有价值的部分不在"解析"，而在**从时间轴里算出可被评测的统计量**：
   语速（字/秒）、最长静默间隔、句子长度分布。这些量直接决定了
   "这条素材的节奏是否适合剪成 30 秒短视频"，是脚本生成的重要输入。
 
@@ -46,7 +46,7 @@ class Cue:
 def _to_seconds(match: re.Match) -> float:
     h, m, s = int(match.group("h")), int(match.group("m")), int(match.group("s"))
     ms_raw = match.group("ms")
-    # "5" 应理解为 500ms，"50" 是 500ms，"500" 是 500ms —— 统一左对齐补零
+    # "5" 应理解为 500ms，"50" 是 500ms，"500" 是 500ms，统一左对齐补零
     ms = int(ms_raw.ljust(3, "0")[:3])
     return h * 3600 + m * 60 + s + ms / 1000.0
 
@@ -55,7 +55,7 @@ def parse_subtitles(text: str) -> list[Cue]:
     """解析 SRT/VTT 文本为字幕列表。
 
     对格式噪声相当宽容：空行、序号缺失、多余空白、VTT 的 ``WEBVTT`` 头与
-    cue 设置（``align:start``）都能正确处理——真实素材几乎不会规整。
+    cue 设置（``align:start``）都能正确处理，真实素材几乎不会规整。
     """
     cues: list[Cue] = []
     # 先按时间行切块，再取该行之后的文本作为内容
@@ -106,7 +106,7 @@ def load_transcript(path: str | Path, *, default_duration: float = 0.0) -> list[
     """读取字幕文件。
 
     扩展名为 ``.txt``（或任何解析不出时间轴的文件）时，
-    按 ``default_duration`` 均分生成等长时间轴，而不是返回空列表——
+    按 ``default_duration`` 均分生成等长时间轴，而不是返回空列表，
     这样"只有文案、没有字幕时间轴"的素材依然能进入后续流程。
     """
     file_path = Path(path)

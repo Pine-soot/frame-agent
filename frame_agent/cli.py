@@ -3,21 +3,21 @@
 四条子命令覆盖了三个使用场景：
 
 ``demo``
-    零参数跑通内置示例。评审者第一次接触这个项目时唯一该做的事——
-    不该让人先读文档再猜参数。
+    零参数跑通内置示例。评审者第一次接触项目时最省事的入口，
+    不用先读文档再猜参数。
 
 ``run``
     对单个 brief 跑一次完整流水线。日常生产用。
 
 ``eval``
-    对一批 brief 跑回归，输出分数矩阵。改提示词/改权重之后必跑，
+    对一批 brief 跑回归，输出分数矩阵。改完提示词或权重之后都应该跑一次，
     用来确认没有把别的 case 改坏。
 
 ``inspect``
-    查看某次运行的检查点与轨迹摘要。出问题时第一步该做的排查动作。
+    查看某次运行的检查点与轨迹摘要。出问题时第一步的排查动作。
 
-设计上刻意把"参数解析"和"业务逻辑"分开：``main`` 只负责把 argv 翻译成
-调用，所有实际工作都在 :mod:`frame_agent.pipeline` 里，便于被程序化复用
+参数解析和业务逻辑是分开的：``main`` 只负责把 argv 翻译成调用，
+所有实际工作都在 :mod:`frame_agent.pipeline` 里，便于被程序化复用
 （比如嵌到别的系统里当函数调，而不是 subprocess）。
 """
 
@@ -122,7 +122,7 @@ def _resolve_brief_paths(briefs: str | None) -> list[Path]:
 def _base_dir_for(brief_path: Path) -> Path:
     """决定本次运行的素材路径解析基准目录。
 
-    规则：brief 位于仓库 ``examples/briefs/`` 下时，基准取仓库根——
+    规则：brief 位于仓库 ``examples/briefs/`` 下时，基准取仓库根，
     因为示例 brief 里的素材路径是相对仓库根书写的；其余情况用 cwd，
     符合"相对路径相对当前工作目录"的一般直觉。
     """
@@ -133,9 +133,9 @@ def _base_dir_for(brief_path: Path) -> Path:
 
 
 def _print_summary(result: dict) -> None:
-    """人读摘要。刻意短——详细内容都在 report.md 里。"""
+    """人读摘要。尽量短，详细内容都在 report.md 里。"""
     if result.get("status") != "ok":
-        print(f"❌ 运行失败：{result.get('reason')}")
+        print(f"[错误] 运行失败：{result.get('reason')}")
         for note in result.get("degradation_notes") or []:
             print(f"   - {note}")
         return
@@ -150,7 +150,7 @@ def _print_summary(result: dict) -> None:
     print(f"采纳变体  : {best.get('id')}（{best.get('angle')}）")
     print(f"钩子      : {best.get('hook')}")
     print(f"总分      : {ev.get('overall')} / 阈值 {ev.get('pass_threshold')} "
-          f"→ {'✅ 达标' if ev.get('verdict') == 'pass' else '⚠️ 未达标'}")
+          f"→ {'达标' if ev.get('verdict') == 'pass' else '未达标'}")
     print(f"反思轮数  : {result.get('rounds')}")
     print(f"模型调用  : {cost.get('total_calls')} 次，token {cost.get('total_tokens')}")
     print("-" * 68)
@@ -162,7 +162,7 @@ def _print_summary(result: dict) -> None:
         print("-" * 68)
         print("降级项：")
         for note in result["degradation_notes"]:
-            print(f"  ⚠️ {note}")
+            print(f"  [降级] {note}")
     print("=" * 68)
     print("产物：")
     for path in result.get("artifacts") or []:
@@ -191,7 +191,7 @@ def cmd_run(args: argparse.Namespace) -> int:
 def cmd_demo(args: argparse.Namespace) -> int:
     brief_path = examples_dir() / "briefs" / f"{args.case}.json"
     if not brief_path.exists():
-        print(f"❌ 找不到示例 brief：{brief_path}", file=sys.stderr)
+        print(f"[错误] 找不到示例 brief：{brief_path}", file=sys.stderr)
         return 2
     brief = _load_json(brief_path)
     repo_root = examples_dir().parent
@@ -216,7 +216,7 @@ def cmd_demo(args: argparse.Namespace) -> int:
 def cmd_eval(args: argparse.Namespace) -> int:
     brief_paths = _resolve_brief_paths(args.briefs)
     if not brief_paths:
-        print("❌ 没有找到任何 brief", file=sys.stderr)
+        print("[错误] 没有找到任何 brief", file=sys.stderr)
         return 2
 
     def run_case(brief_path: str, out_dir: str) -> dict:
@@ -266,7 +266,7 @@ def cmd_eval(args: argparse.Namespace) -> int:
 def cmd_inspect(args: argparse.Namespace) -> int:
     state = RunState.load(args.state)
     if state is None:
-        print(f"❌ 在 {args.state} 下找不到 run_state.json", file=sys.stderr)
+        print(f"[错误] 在 {args.state} 下找不到 run_state.json", file=sys.stderr)
         return 2
 
     print("=" * 68)
@@ -289,7 +289,7 @@ def cmd_inspect(args: argparse.Namespace) -> int:
         print("-" * 68)
         print("降级项：")
         for note in state.degradation_notes:
-            print(f"  ⚠️ {note}")
+            print(f"  [降级] {note}")
 
     if args.trace:
         records = state.read_trace()
@@ -323,7 +323,7 @@ def main(argv: list[str] | None = None) -> int:
         print("\n已中断", file=sys.stderr)
         return 130
     except Exception as exc:  # noqa: BLE001 - CLI 顶层兜底，给出可读错误而非堆栈
-        print(f"❌ {type(exc).__name__}: {exc}", file=sys.stderr)
+        print(f"[错误] {type(exc).__name__}: {exc}", file=sys.stderr)
         return 1
 
 

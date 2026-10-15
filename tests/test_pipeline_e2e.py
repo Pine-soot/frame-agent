@@ -1,4 +1,4 @@
-"""端到端测试 —— 本项目最重要的一组用例。
+"""端到端测试：本项目最重要的一组用例。
 
 它验证的是"整条流水线作为一个系统"的行为，而不是单个模块：
 
@@ -8,7 +8,7 @@
 4. **批量回归套件**能跑通并给出正确汇总；
 5. **max_rounds=1 时跳过重写**，成本随之下调。
 
-这些性质一旦被破坏，说明流水线的"可靠性承诺"出了问题——
+这些性质一旦被破坏，说明流水线的"可靠性承诺"出了问题，
 比某个函数的返回值错更严重。
 """
 
@@ -129,7 +129,7 @@ class TestEndToEnd(unittest.TestCase):
     # -- 确定性 -------------------------------------------------------------
 
     def test_two_runs_are_byte_identical_in_outcome(self):
-        """离线后端无随机数，两次运行的结果必须完全一致——
+        """离线后端无随机数，两次运行的结果必须完全一致，
         这是把"报告里的数字"当作可验证证据的前提。"""
         brief = _load(BRIEF_PATH)
         a = _pipeline(self.out / "a").run(brief)
@@ -143,7 +143,7 @@ class TestEndToEnd(unittest.TestCase):
         self.assertEqual(a["cost"]["total_calls"], b["cost"]["total_calls"])
 
     def test_second_example_brief_also_runs(self):
-        """第二个 brief（SaaS 类目）也必须跑通——
+        """第二个 brief（SaaS 类目）也必须跑通，
         否则说明提示词或评测器被单一类目过拟合了。"""
         saas = examples_dir() / "briefs" / "saas_demo.json"
         result = _pipeline(self.out / "saas").run(_load(saas), brief_path=str(saas))
@@ -209,7 +209,7 @@ class TestRegressionSuite(unittest.TestCase):
         self.assertTrue((self.out / "skincare_launch").is_dir())
 
     def test_suite_isolates_failing_case(self):
-        """单个 case 抛异常不能中断整批——批量回归的价值就在于总能给出全景。"""
+        """单个 case 抛异常不能中断整批，批量回归的价值就在于总能给出全景。"""
 
         def run_case(brief_path: str, out_dir: str) -> dict:
             if "saas" in brief_path:

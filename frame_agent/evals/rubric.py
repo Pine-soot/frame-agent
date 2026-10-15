@@ -1,9 +1,9 @@
-"""确定性评测器 —— 整条流水线的"裁判"。
+"""确定性评测器：整条流水线的"裁判"。
 
 核心立场
 ========
 
-**评分权不能交给模型。** 理由不是不信任模型的能力，而是不信任"自己评自己"
+**评分权不能交给模型。** 理由与模型能力无关，问题出在"自己评自己"
 这件事在方法论上成立：
 
 - 模型倾向于给刚生成的内容打高分（self-preference bias），这是已知现象；
@@ -28,7 +28,7 @@ producibility     0.10    拍不出来等于零，但它是必要条件而非充
 ===============  ======  ============================================
 
 权重之和为 1.0，由 :func:`_check_weights` 在导入时断言，
-避免有人改了权重忘记同步——这类错误在评测系统里非常隐蔽。
+避免有人改了权重忘记同步，这类错误在评测系统里非常隐蔽。
 """
 
 from __future__ import annotations
@@ -75,7 +75,7 @@ _check_weights()
 # --------------------------------------------------------------------------
 
 def score_hook(metrics: dict) -> tuple[int, list[str]]:
-    """钩子强度 —— 权重最高，也是反思循环里唯一需要真正"重写"的维度。
+    """钩子强度，权重最高，也是反思循环里主要"重写"的维度。
 
     加分项全部对应可观测的字面特征，不做语义判断（语义判断交给 Critic）。
     这正是分工的意义：字面特征机器判定，语义质量模型判定。
@@ -123,7 +123,7 @@ def score_hook(metrics: dict) -> tuple[int, list[str]]:
 
 
 def score_audience(metrics: dict) -> tuple[int, list[str]]:
-    """受众贴合度 —— 检查目标受众的关键词与痛点是否真的进入了文案。"""
+    """受众贴合度，检查目标受众的关键词与痛点是否真的进入了文案。"""
     score = 0
     notes: list[str] = []
 
@@ -175,7 +175,7 @@ def score_audience(metrics: dict) -> tuple[int, list[str]]:
 
 
 def score_structure(metrics: dict) -> tuple[int, list[str]]:
-    """结构 —— 节拍数量、镜头完整性、以及最实际的"塞不塞得进时长"。"""
+    """结构，节拍数量、镜头完整性、以及最实际的"塞不塞得进时长"。"""
     score = 0
     notes: list[str] = []
 
@@ -217,7 +217,7 @@ def score_structure(metrics: dict) -> tuple[int, list[str]]:
 
 
 def score_compliance(metrics: dict, brief: dict | None = None) -> tuple[int, list[str]]:
-    """合规 —— 一票否决式维度：命中风险词直接腰斩，命中多个直接压到地板。"""
+    """合规，一票否决式维度：命中风险词直接腰斩，命中多个直接压到地板。"""
     from frame_agent.llm.mock import _RISK_TERMS
 
     text = " ".join(
@@ -242,7 +242,7 @@ def score_compliance(metrics: dict, brief: dict | None = None) -> tuple[int, lis
 
 
 def score_producibility(metrics: dict) -> tuple[int, list[str]]:
-    """可拍摄性 —— 只判断"能不能照着拍出来"，不判断拍得好不好。"""
+    """可拍摄性，只判断"能不能照着拍出来"，不判断拍得好不好。"""
     score = 0
     notes: list[str] = []
 

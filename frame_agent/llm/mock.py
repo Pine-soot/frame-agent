@@ -1,4 +1,4 @@
-"""确定性离线后端 —— 让整条流水线**不依赖 API Key 也能完整跑通**。
+"""确定性离线后端：让整条流水线**不依赖 API Key 也能完整跑通**。
 
 为什么值得写这一个"假"后端
 ==========================
@@ -24,11 +24,11 @@
 即便如此，它仍严格实现了真实后端的两条关键行为，否则无法承担测试职责：
 
 - **会发起工具调用**：首轮返回 ``tool_calls``，等 Agent 回灌观测后再输出最终 JSON；
-- **会被"重写指令"真正改变**：第二轮拿到 critic 的 directives 后，
+- **会被"重写指令"改变**：第二轮拿到 critic 的 directives 后，
   钩子从"描述型"改为"数字+悬念型"，于是确定性评测器给出的分数**真的会上升**，
   反思循环的收敛是可观测的，而不是假装收敛。
 
-另有一个刻意设计：**所有内容都由上下文推导，不使用随机数**。
+另有一个设计约定：**所有内容都由上下文推导，不使用随机数**。
 同一个 brief 跑一万次，输出逐字节相同。这让测试可以做精确断言。
 """
 
@@ -102,7 +102,7 @@ def _estimate_tokens(text: str) -> int:
 def _first_number(candidates: Sequence[str], fallback: str = "3") -> str:
     """取出候选文本里第一个数字（只保留数字与小数点）。
 
-    刻意**剥掉 ``%`` 等单位符号**：钩子模板是领域无关的，
+    **剥掉 ``%`` 等单位符号**：钩子模板是领域无关的，
     如果直接把 "5%" 塞进"5处关键点"这类句式会产出病句，
     而带上单位又没法在别的领域复用（"3个系统" → "3个关键点"）。
     统一只取数值是最稳妥的做法。
@@ -236,12 +236,12 @@ def _scan_risk(text: str) -> list[str]:
 # --------------------------------------------------------------------------
 
 def _hook_descriptive(facets: dict, angle: str, index: int) -> str:
-    """第一轮钩子：**刻意写得"安全但平庸"**——长、无数字、无悬念标记。
+    """第一轮钩子：**写得"安全但平庸"**，长、无数字、无悬念标记。
 
-    这不是偷懒，而是为了演示反思循环真的在起作用：
+    这么做是为了演示反思循环确实在起作用：
     第一轮必然低于阈值，critic 给出指令，第二轮才有对比可言。
 
-    注意这里**刻意不出现产品名与卖点**：卖点里带 "5%"、"28 天" 这类数字，
+    注意这里**不出现产品名与卖点**：卖点里带 "5%"、"28 天" 这类数字，
     一旦混进钩子就会命中 ``hook_has_number`` 而虚高。要演示"缺数字"，
     就必须保证钩子文本里真的没有数字。
     """
@@ -355,7 +355,7 @@ def _script_write(ctx: dict) -> dict:
                 else "点击下方购物车立即查看"
             )
         else:
-            # 第一轮刻意给一个**没有明确动作词**的收尾：
+            # 第一轮给一个**没有明确动作词**的收尾：
             # 这会让评测器的 cta_present 判定为 False，转化维度真实失分。
             cta = _BEATS_V1_CTA
         variants.append(
@@ -418,7 +418,7 @@ def _script_critique(ctx: dict) -> dict:
             "fix": _DIRECTIVE_BY_DIMENSION[dimension],
         }
 
-    # 来源二：**独立的合规扫描**。这一条刻意不依赖打分器：
+    # 来源二：**独立的合规扫描**。这一条不依赖打分器：
     # 只要扫描命中风险词，无论评测器给多少分，都必须升级为 high 并给出改写指令。
     compliance = observations.get("scan_compliance") or {}
     risk_hits = compliance.get("risk_terms_hit") or []
@@ -430,7 +430,7 @@ def _script_critique(ctx: dict) -> dict:
             "fix": _DIRECTIVE_BY_DIMENSION["compliance"],
         }
     elif compliance.get("is_clean") and "compliance" in issues:
-        # 打分器判低但独立扫描认为干净 —— 说明是约束条款层面的问题，
+        # 打分器判低但独立扫描认为干净，说明是约束条款层面的问题，
         # 降级为 medium，避免对脚本做无谓的大改。
         issues["compliance"]["severity"] = "medium"
         issues["compliance"]["evidence"] = (

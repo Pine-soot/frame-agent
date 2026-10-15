@@ -1,9 +1,9 @@
 """LLM 抽象层。
 
-- :mod:`frame_agent.llm.base` —— 协议与数据结构（无厂商绑定）
-- :mod:`frame_agent.llm.router` —— 降级链 / 重试退避 / 预算熔断 / 记账
-- :mod:`frame_agent.llm.mock` —— 确定性离线后端（保可复现）
-- :mod:`frame_agent.llm.openai_compat` —— 任意 OpenAI 兼容端点
+- :mod:`frame_agent.llm.base`：协议与数据结构（无厂商绑定）
+- :mod:`frame_agent.llm.router`：降级链 / 重试退避 / 预算熔断 / 记账
+- :mod:`frame_agent.llm.mock`：确定性离线后端（保可复现）
+- :mod:`frame_agent.llm.openai_compat`：任意 OpenAI 兼容端点
 
 :func:`build_backends` 是唯一需要改动的装配点：想把 mock 换成真模型，
 只改环境变量即可，流水线代码一行不动。

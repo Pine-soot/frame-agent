@@ -79,7 +79,7 @@ def detect_task(system_prompt: str) -> str | None:
 def encode_ctx(payload: dict) -> str:
     """把结构化上下文序列化成信封。
 
-    ``ensure_ascii=False`` 是刻意的：中文上下文保持可读，
+    ``ensure_ascii=False`` 是有意为之的：中文上下文保持可读，
     一方面方便人工审查落盘的 trace，另一方面真实模型对中文原文的
     理解优于 ``\\uXXXX`` 转义序列。
     """

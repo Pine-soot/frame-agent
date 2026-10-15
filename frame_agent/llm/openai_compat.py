@@ -1,13 +1,13 @@
-"""OpenAI 兼容后端 —— 用标准库直连任意兼容端点。
+"""OpenAI 兼容后端：用标准库直连任意兼容端点。
 
-**刻意不引入 openai / dashscope / requests 等 SDK。** 原因：
+**不引入 openai / dashscope / requests 等 SDK。** 原因：
 
 - 兼容面反而更大：只要实现 ``POST {base_url}/chat/completions`` 的服务都能用，
   包括 OpenAI、DeepSeek、通义千问（兼容模式）、Moonshot、vLLM、Ollama、LM Studio、
   以及本地自建网关。装一个 SDK 反而把自己锁在某一家的兼容层上。
 - 依赖为零：``urllib.request`` + ``json`` 就够了，评审者不必 pip install 任何东西。
 - 关键逻辑可见：错误分类（哪些该重试、哪些该换后端）写在这里，而不是藏在
-  SDK 的重试装饰器里——这段逻辑恰恰是 Agent 稳定性最需要被 review 的部分。
+  SDK 的重试装饰器里，这段逻辑正好是 Agent 稳定性最需要被 review 的部分。
 
 配置全部来自环境变量，便于在 CI / 本地 / 服务器之间切换而不改代码：
 
@@ -106,7 +106,7 @@ class OpenAICompatBackend:
             try:
                 arguments = json.loads(raw_args) if isinstance(raw_args, str) else raw_args
             except json.JSONDecodeError:
-                # 模型偶尔会输出非法 JSON 参数。不在这里抛错——
+                # 模型偶尔会输出非法 JSON 参数。不在这里抛错，
                 # 把它降级成 ``{"__raw__": ...}`` 交给工具层报可读错误，
                 # 让 Agent 有机会"看到错误并自己修正"，而不是整轮崩掉。
                 arguments = {"__raw__": raw_args}

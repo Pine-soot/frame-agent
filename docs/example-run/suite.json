@@ -15,11 +15,11 @@
       },
       "rounds": 2,
       "model_calls": 9,
-      "tokens": 20987,
+      "tokens": 20983,
       "best_variant_id": "v1",
       "best_hook": "排期？5天自己看变化",
       "degradation_notes": [],
-      "elapsed_sec": 0.078
+      "elapsed_sec": 0.068
     },
     {
       "brief_id": "skincare_launch",
@@ -36,11 +36,11 @@
       },
       "rounds": 2,
       "model_calls": 9,
-      "tokens": 20756,
+      "tokens": 20752,
       "best_variant_id": "v1",
       "best_hook": "暗沉？28天自己看变化",
       "degradation_notes": [],
-      "elapsed_sec": 0.07
+      "elapsed_sec": 0.063
     }
   ],
   "summary": {
@@ -52,7 +52,7 @@
     "max_score": 97.0,
     "mean_rounds": 2.0,
     "total_model_calls": 18,
-    "total_tokens": 41743,
+    "total_tokens": 41735,
     "mean_dimension_scores": {
       "audience_fit": 85.0,
       "compliance": 100.0,

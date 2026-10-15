@@ -134,11 +134,11 @@ class ModelRouter:
     --------
     对一次 :meth:`call`：
 
-    1. **先查预算** —— 超支立刻抛 :class:`BudgetExceeded`，绝不"先花再报"；
-    2. **按顺序试后端** —— 首选失败则降级到次选（这就是 fallback chain）；
-    3. **同一后端内做退避重试** —— 仅对 :class:`TransientLLMError` 重试，
+    1. **先查预算**：超支立刻抛 :class:`BudgetExceeded`，绝不"先花再报"；
+    2. **按顺序试后端**：首选失败则降级到次选（这就是 fallback chain）；
+    3. **同一后端内做退避重试**：仅对 :class:`TransientLLMError` 重试，
        遇到 :class:`PermanentLLMError` 立刻换后端（重试一个鉴权错误纯属浪费）；
-    4. **无论成功失败都记账** —— 失败的调用同样消耗了延迟与配额，不能漏记。
+    4. **无论成功失败都记账**：失败的调用同样消耗了延迟与配额，不能漏记。
 
     ``sleep`` 可注入，测试里传一个空函数即可零延迟跑完退避逻辑。
     """
